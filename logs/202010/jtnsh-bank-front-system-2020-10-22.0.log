@@ -1,4 +1,0 @@
-2020-10-22 22:23:55.034 [restartedMain] INFO  com.competition.firemon.FiremonApplication - Starting FiremonApplication on LAPTOP-SH7PGPF4 with PID 14180 (E:\ideacode\competition\firemon\target\classes started by 11985 in E:\ideacode\competition\firemon)
-2020-10-22 22:23:55.038 [restartedMain] INFO  com.competition.firemon.FiremonApplication - No active profile set, falling back to default profiles: default
-2020-10-22 22:23:55.106 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2020-10-22 22:23:55.106 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
