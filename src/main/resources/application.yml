@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: firemon
+
+  mvc:
+    static-path-pattern: /**
+
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://101.39.40.23:3306/firemon?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: wuhao123
+    druid:
+      initialSize: 5
+      minIdle: 5
+      maxActive: 20
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1 FROM DUAL
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+    type: com.alibaba.druid.pool.DruidDataSource
+
+  redis:
+    host: 101.37.22.13
+    timeout: 5000ms
+    database: 1
+
+  resources:
+    static-locations: classpath:static/
+
+  servlet:
+    multipart:
+      max-file-size: 1GB
+      max-request-size: 1GB
+
+mybatis:
+  mapper-locations: classpath*:/mapper/**Mapper.xml
+
+firemon:
+  sms:
+    accessKeyId:
+    accessKeySecret:
+    signName: 数模
+    verifyCodeTemplate: SMS_179612241
+

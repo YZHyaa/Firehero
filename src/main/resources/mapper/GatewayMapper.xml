@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.competition.firemon.dao.GatewayMapper" >
+  <resultMap id="BaseResultMap" type="com.competition.firemon.bean.Gateway" >
+    <id column="gateway_id" property="gatewayId" jdbcType="INTEGER" />
+    <result column="gateway_createtime" property="gatewayCreatetime" jdbcType="TIMESTAMP" />
+    <result column="gateway_ghz" property="gatewayGhz" jdbcType="VARCHAR" />
+    <result column="gateway_transfer_rate" property="gatewayTransferRate" jdbcType="VARCHAR" />
+    <result column="gateway_flash_memory" property="gatewayFlashMemory" jdbcType="VARCHAR" />
+    <result column="gateway_memory" property="gatewayMemory" jdbcType="VARCHAR" />
+    <result column="firmware_version" property="firmwareVersion" jdbcType="VARCHAR" />
+    <result column="gateway_mac" property="gatewayMac" jdbcType="VARCHAR" />
+    <result column="first_dns" property="firstDns" jdbcType="VARCHAR" />
+    <result column="next_dns" property="nextDns" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    gateway_id, gateway_createtime, gateway_ghz, gateway_transfer_rate, gateway_flash_memory, 
+    gateway_memory, firmware_version, gateway_mac, first_dns, next_dns, user_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.competition.firemon.bean.GatewayExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_gateway
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_gateway
+    where gateway_id = #{gatewayId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_gateway
+    where gateway_id = #{gatewayId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.competition.firemon.bean.GatewayExample" >
+    delete from t_gateway
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.competition.firemon.bean.Gateway" >
+    insert into t_gateway (gateway_id, gateway_createtime, gateway_ghz, 
+      gateway_transfer_rate, gateway_flash_memory, 
+      gateway_memory, firmware_version, gateway_mac, 
+      first_dns, next_dns, user_id
+      )
+    values (#{gatewayId,jdbcType=INTEGER}, #{gatewayCreatetime,jdbcType=TIMESTAMP}, #{gatewayGhz,jdbcType=VARCHAR}, 
+      #{gatewayTransferRate,jdbcType=VARCHAR}, #{gatewayFlashMemory,jdbcType=VARCHAR}, 
+      #{gatewayMemory,jdbcType=VARCHAR}, #{firmwareVersion,jdbcType=VARCHAR}, #{gatewayMac,jdbcType=VARCHAR}, 
+      #{firstDns,jdbcType=VARCHAR}, #{nextDns,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.competition.firemon.bean.Gateway" >
+    insert into t_gateway
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="gatewayId != null" >
+        gateway_id,
+      </if>
+      <if test="gatewayCreatetime != null" >
+        gateway_createtime,
+      </if>
+      <if test="gatewayGhz != null" >
+        gateway_ghz,
+      </if>
+      <if test="gatewayTransferRate != null" >
+        gateway_transfer_rate,
+      </if>
+      <if test="gatewayFlashMemory != null" >
+        gateway_flash_memory,
+      </if>
+      <if test="gatewayMemory != null" >
+        gateway_memory,
+      </if>
+      <if test="firmwareVersion != null" >
+        firmware_version,
+      </if>
+      <if test="gatewayMac != null" >
+        gateway_mac,
+      </if>
+      <if test="firstDns != null" >
+        first_dns,
+      </if>
+      <if test="nextDns != null" >
+        next_dns,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="gatewayId != null" >
+        #{gatewayId,jdbcType=INTEGER},
+      </if>
+      <if test="gatewayCreatetime != null" >
+        #{gatewayCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gatewayGhz != null" >
+        #{gatewayGhz,jdbcType=VARCHAR},
+      </if>
+      <if test="gatewayTransferRate != null" >
+        #{gatewayTransferRate,jdbcType=VARCHAR},
+      </if>
+      <if test="gatewayFlashMemory != null" >
+        #{gatewayFlashMemory,jdbcType=VARCHAR},
+      </if>
+      <if test="gatewayMemory != null" >
+        #{gatewayMemory,jdbcType=VARCHAR},
+      </if>
+      <if test="firmwareVersion != null" >
+        #{firmwareVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="gatewayMac != null" >
+        #{gatewayMac,jdbcType=VARCHAR},
+      </if>
+      <if test="firstDns != null" >
+        #{firstDns,jdbcType=VARCHAR},
+      </if>
+      <if test="nextDns != null" >
+        #{nextDns,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.competition.firemon.bean.GatewayExample" resultType="java.lang.Integer" >
+    select count(*) from t_gateway
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_gateway
+    <set >
+      <if test="record.gatewayId != null" >
+        gateway_id = #{record.gatewayId,jdbcType=INTEGER},
+      </if>
+      <if test="record.gatewayCreatetime != null" >
+        gateway_createtime = #{record.gatewayCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gatewayGhz != null" >
+        gateway_ghz = #{record.gatewayGhz,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gatewayTransferRate != null" >
+        gateway_transfer_rate = #{record.gatewayTransferRate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gatewayFlashMemory != null" >
+        gateway_flash_memory = #{record.gatewayFlashMemory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gatewayMemory != null" >
+        gateway_memory = #{record.gatewayMemory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.firmwareVersion != null" >
+        firmware_version = #{record.firmwareVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gatewayMac != null" >
+        gateway_mac = #{record.gatewayMac,jdbcType=VARCHAR},
+      </if>
+      <if test="record.firstDns != null" >
+        first_dns = #{record.firstDns,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nextDns != null" >
+        next_dns = #{record.nextDns,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_gateway
+    set gateway_id = #{record.gatewayId,jdbcType=INTEGER},
+      gateway_createtime = #{record.gatewayCreatetime,jdbcType=TIMESTAMP},
+      gateway_ghz = #{record.gatewayGhz,jdbcType=VARCHAR},
+      gateway_transfer_rate = #{record.gatewayTransferRate,jdbcType=VARCHAR},
+      gateway_flash_memory = #{record.gatewayFlashMemory,jdbcType=VARCHAR},
+      gateway_memory = #{record.gatewayMemory,jdbcType=VARCHAR},
+      firmware_version = #{record.firmwareVersion,jdbcType=VARCHAR},
+      gateway_mac = #{record.gatewayMac,jdbcType=VARCHAR},
+      first_dns = #{record.firstDns,jdbcType=VARCHAR},
+      next_dns = #{record.nextDns,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.competition.firemon.bean.Gateway" >
+    update t_gateway
+    <set >
+      <if test="gatewayCreatetime != null" >
+        gateway_createtime = #{gatewayCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gatewayGhz != null" >
+        gateway_ghz = #{gatewayGhz,jdbcType=VARCHAR},
+      </if>
+      <if test="gatewayTransferRate != null" >
+        gateway_transfer_rate = #{gatewayTransferRate,jdbcType=VARCHAR},
+      </if>
+      <if test="gatewayFlashMemory != null" >
+        gateway_flash_memory = #{gatewayFlashMemory,jdbcType=VARCHAR},
+      </if>
+      <if test="gatewayMemory != null" >
+        gateway_memory = #{gatewayMemory,jdbcType=VARCHAR},
+      </if>
+      <if test="firmwareVersion != null" >
+        firmware_version = #{firmwareVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="gatewayMac != null" >
+        gateway_mac = #{gatewayMac,jdbcType=VARCHAR},
+      </if>
+      <if test="firstDns != null" >
+        first_dns = #{firstDns,jdbcType=VARCHAR},
+      </if>
+      <if test="nextDns != null" >
+        next_dns = #{nextDns,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where gateway_id = #{gatewayId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.competition.firemon.bean.Gateway" >
+    update t_gateway
+    set gateway_createtime = #{gatewayCreatetime,jdbcType=TIMESTAMP},
+      gateway_ghz = #{gatewayGhz,jdbcType=VARCHAR},
+      gateway_transfer_rate = #{gatewayTransferRate,jdbcType=VARCHAR},
+      gateway_flash_memory = #{gatewayFlashMemory,jdbcType=VARCHAR},
+      gateway_memory = #{gatewayMemory,jdbcType=VARCHAR},
+      firmware_version = #{firmwareVersion,jdbcType=VARCHAR},
+      gateway_mac = #{gatewayMac,jdbcType=VARCHAR},
+      first_dns = #{firstDns,jdbcType=VARCHAR},
+      next_dns = #{nextDns,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=BIGINT}
+    where gateway_id = #{gatewayId,jdbcType=INTEGER}
+  </update>
+</mapper>

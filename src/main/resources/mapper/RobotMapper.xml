@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.competition.firemon.dao.RobotMapper" >
+  <resultMap id="BaseResultMap" type="com.competition.firemon.bean.Robot" >
+    <id column="robot_id" property="robotId" jdbcType="INTEGER" />
+    <result column="gateway_id" property="gatewayId" jdbcType="INTEGER" />
+    <result column="unit_type" property="unitType" jdbcType="VARCHAR" />
+    <result column="robot_mac" property="robotMac" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    robot_id, gateway_id, unit_type, robot_mac
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.competition.firemon.bean.RobotExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_robot
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_robot
+    where robot_id = #{robotId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_robot
+    where robot_id = #{robotId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.competition.firemon.bean.RobotExample" >
+    delete from t_robot
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.competition.firemon.bean.Robot" >
+    insert into t_robot (robot_id, gateway_id, unit_type, 
+      robot_mac)
+    values (#{robotId,jdbcType=INTEGER}, #{gatewayId,jdbcType=INTEGER}, #{unitType,jdbcType=VARCHAR}, 
+      #{robotMac,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.competition.firemon.bean.Robot" >
+    insert into t_robot
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="robotId != null" >
+        robot_id,
+      </if>
+      <if test="gatewayId != null" >
+        gateway_id,
+      </if>
+      <if test="unitType != null" >
+        unit_type,
+      </if>
+      <if test="robotMac != null" >
+        robot_mac,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="robotId != null" >
+        #{robotId,jdbcType=INTEGER},
+      </if>
+      <if test="gatewayId != null" >
+        #{gatewayId,jdbcType=INTEGER},
+      </if>
+      <if test="unitType != null" >
+        #{unitType,jdbcType=VARCHAR},
+      </if>
+      <if test="robotMac != null" >
+        #{robotMac,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.competition.firemon.bean.RobotExample" resultType="java.lang.Integer" >
+    select count(*) from t_robot
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_robot
+    <set >
+      <if test="record.robotId != null" >
+        robot_id = #{record.robotId,jdbcType=INTEGER},
+      </if>
+      <if test="record.gatewayId != null" >
+        gateway_id = #{record.gatewayId,jdbcType=INTEGER},
+      </if>
+      <if test="record.unitType != null" >
+        unit_type = #{record.unitType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.robotMac != null" >
+        robot_mac = #{record.robotMac,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_robot
+    set robot_id = #{record.robotId,jdbcType=INTEGER},
+      gateway_id = #{record.gatewayId,jdbcType=INTEGER},
+      unit_type = #{record.unitType,jdbcType=VARCHAR},
+      robot_mac = #{record.robotMac,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.competition.firemon.bean.Robot" >
+    update t_robot
+    <set >
+      <if test="gatewayId != null" >
+        gateway_id = #{gatewayId,jdbcType=INTEGER},
+      </if>
+      <if test="unitType != null" >
+        unit_type = #{unitType,jdbcType=VARCHAR},
+      </if>
+      <if test="robotMac != null" >
+        robot_mac = #{robotMac,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where robot_id = #{robotId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.competition.firemon.bean.Robot" >
+    update t_robot
+    set gateway_id = #{gatewayId,jdbcType=INTEGER},
+      unit_type = #{unitType,jdbcType=VARCHAR},
+      robot_mac = #{robotMac,jdbcType=VARCHAR}
+    where robot_id = #{robotId,jdbcType=INTEGER}
+  </update>
+</mapper>
