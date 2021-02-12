@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <button type="button" onclick="test()">TEST</button>
+
+    <script src="jquery-3.3.1.min%20.js"></script>
+    <script>
+        function test() {
+            $.ajax({
+                type:"POST",
+                url:"http://39.105.136.112/code/phone",
+                contentType: "application/json",
+                data:JSON.stringify({"phone":"15389093292"}),
+                dataType: 'json',
+                success:function (data) {
+                    console.log(data);
+                }
+            })
+        }
+    </script>
+</body>
+</html>

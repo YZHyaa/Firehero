@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: fireHero
+  datasource:
+    url: jdbc:mysql://43.107.136.120:3306/firehero?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+  redis:
+    host: 43.107.136.120
+    timeout: 5000ms
+    database: 1
+
+firehero:
+  jwt:
+    secret: firehero@Login(Auth}*^31)&heiMa% # 登录校验的密钥
+    pubKeyPath: C:\temp\rsa\xusm\rsa.pub # 公钥地址
+    priKeyPath: C:\temp\rsa\xusm\rsa.pri # 私钥地址
+    expire: 45 # 过期时间,单位分钟
+    cookieName: FIREHERO_TOKEN #cookie名
+    cookieMaxAge: 45 #cookie过期时间
+  sms:
+    accessKeyId:
+    accessKeySecret: 
+    signName: 数模
+    verifyCodeTemplate: SMS_179612241
+  origin:
+    - http://localhost:8080
+    - http://localhost:8081
+    - http://43.107.136.120:8080
+    - http://43.107.136.120
+  domain: 43.107.136.120 #localhost
